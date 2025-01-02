@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <title>Plate girder camber Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <header>
+        <h1>End Rotation Calculator</h1>
+    </header>
+    <main>
+
+    <section class="calculator">
+            <h2>Calculate End Rotation</h2>
+            <form id="End-rotation">
+                <label for="deflection">Deflection:</label>
+                <input type="number"step="any" id="deflection" required>
+                <br><br>
+                <label for="depth">Depth:</label>
+                <input type="number"step="any" id="depth" required>
+                <br><br>
+                <label for="span">Span:</label>
+                <input type="number"step="any" id="span" required>
+                <br><br>
+                <button id="calculate-btn">Calculate End Rotation</button>
+                <p id="result"></p>
+            </form>
+            <form id="End-kick">
+                <label for="higher">Higher Elevation:</label>
+                <input type="number"step="any" id="higher" required>
+                <br><br>
+                <label for="lower">Lower Elevation:</label>
+                <input type="number"step="any" id="lower" required>
+                <br><br>
+                <button id="calculate-btn">Calculate End Kick due to grade</button>
+               
+          
+               
+            </form>
+            <p id="result2"></p>
+            <p id="high_end">High End: </p> <!-- Placeholder for High End -->
+            <p id="low_end">Low End: </p> <!-- Placeholder for Low End -->
+           
+           
+        </section>
+       
+    
+    </main>
+  
+    <script src="script.js"></script>
+</body>
+</html>
