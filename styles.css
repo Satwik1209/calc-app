@@ -2,12 +2,15 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f9f9f9; /* Light background for the entire page */
 }
 
 header {
-    background-color: #f0f0f0;
+    background-color: #4CAF50; /* Green header for a fresh look */
     padding: 20px;
     text-align: center;
+    color: white; /* White text for contrast */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 main {
@@ -18,53 +21,145 @@ main {
 }
 
 .calculator {
-    background-color: #fff;
+    background-color: #fff; /* White background for the calculator */
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; /* Light border */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+    max-width: 900px; /* Adjust as needed */
 }
 
+.forms-container {
+    display: flex;
+    gap: 30px; /* Increased space between forms */
+    width: 100%;
+}
 
+.form-column {
+    flex: 1; /* Equal width for both forms */
+    background-color: #f5f5f5; /* Light gray background for each form */
+    padding: 20px;
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.form-column h2 {
+    margin-top: 0;
+    color: #333; /* Dark text for headings */
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 label {
     display: block;
     margin-bottom: 10px;
+    color: #555; /* Medium-dark text for labels */
+    font-weight: bold;
 }
 
-input[type="number"] {
+input[type="number"],
+input[type="text"] {
     width: 100%;
     height: 40px;
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Light border for inputs */
     border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff; /* White background for inputs */
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: #4CAF50; /* Green border on focus */
+    outline: none;
 }
 
 button {
     width: 100%;
     height: 40px;
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* Green button */
     color: #fff;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
 button:hover {
-    background-color: #3e8e41;
+    background-color: #45a049; /* Darker green on hover */
 }
 
-#result, #result2 {
+#result,
+#result2 {
     font-size: 24px;
     font-weight: bold;
     margin-top: 20px;
+    color: #333; /* Dark text for results */
+    text-align: center;
 }
 
-footer {
-    background-color: #f0f0f0;
-    padding: 10px;
+#high_end,
+#low_end,
+#p {
+    font-size: 18px;
+    color: #555; /* Medium-dark text for additional info */
     text-align: center;
-    clear: both;
+    margin-top: 10px;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .forms-container {
+        flex-direction: column; /* Stack forms vertically on small screens */
+    }
+
+    .form-column {
+        margin-bottom: 20px; /* Add space between stacked forms */
+    }
+}
+.table-container {
+    margin-top: 20px;
+}
+
+.table-container h2 {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+#resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#resultsTable thead {
+    background-color: #28a745;
+    color: white;
+}
+
+#resultsTable th,
+#resultsTable td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+#resultsTable th {
+    font-weight: bold;
+}
+
+#resultsTable tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+#resultsTable tbody tr:last-child td {
+    border-bottom: none;
 }
