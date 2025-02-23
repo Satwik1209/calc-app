@@ -1,65 +1,108 @@
-// Get the form and result elements
-const form = document.getElementById('End-rotation');
-const endRotation_resultElement = document.getElementById('result');
+// Get all form and result elements
+const rotationForm = document.getElementById('End-rotation');
+const kickForm = document.getElementById('End-kick');
+const calculateEButton = document.getElementById('calculateE');
 
-// Add an event listener to the form
-form.addEventListener('submit', (e) => {
-    // Prevent the default form submission behavior
+const endRotationResultElement = document.getElementById('result');
+const endKickResultElement = document.getElementById('result2');
+const highEndElement = document.getElementById('high_end');
+const lowEndElement = document.getElementById('low_end');
+const pElement = document.getElementById('p');
+const eValueElement = document.getElementById('eValue');
+const resultsTableBody = document.querySelector('#resultsTable tbody');
+
+let p = null; // Store the value of p globally
+
+// End Rotation Calculation
+rotationForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Get the input values
-    var deflection = document.getElementById('deflection').value;
-    var depth = document.getElementById('depth').value;
-    var span = document.getElementById('span').value;
+    // Get input values
+    const deflection = parseFloat(document.getElementById('deflection').value);
+    const depth = parseFloat(document.getElementById('depth').value);
+    const span = parseFloat(document.getElementById('span').value);
 
-    // Calculate the end rotation
-    const endRotation = 4 * deflection * (depth / span);
-
-    // Display the result
-    endRotation_resultElement.textContent = `End Rotation: ${endRotation.toFixed(5)}'`;
-});
-
-const form2 = document.getElementById('End-kick');
-const endKick_resultElement = document.getElementById('result2');
-
-form2.addEventListener('submit', (e) => {
-    // Prevent the default form submission behavior
-    e.preventDefault();
-
-    // Get the input values
-    var higher = parseFloat(document.getElementById('higher').value);
-    var lower = parseFloat(document.getElementById('lower').value);
-    var span = parseFloat(document.getElementById('span').value);
-    var depth = parseFloat(document.getElementById('depth').value);
-    var deflection = parseFloat(document.getElementById('deflection').value);
-
-    // Check for invalid input
-    if (isNaN(higher) || isNaN(lower) || isNaN(span) || isNaN(depth) || isNaN(deflection)) {
-        document.getElementById('result2').textContent = 'Please provide valid numbers.';
+    if (isNaN(deflection) || isNaN(depth) || isNaN(span)) {
+        endRotationResultElement.textContent = 'Please provide valid numbers.';
         return;
     }
 
-    // Calculate endRotation
+    // Calculate End Rotation
     const endRotation = 4 * deflection * (depth / span);
+    p = (span / 2) ** 2 / deflection; // Store p globally
 
-    // Calculate grade_tan and endKick
-    var grade_tan = (higher - lower) / span;
-    var endKick = grade_tan * depth;
+    // Display result
+    endRotationResultElement.textContent = `End Rotation: ${endRotation.toFixed(4)}'`;
+    pElement.textContent = `p = ${p.toFixed(5)}`;
+});
 
-    // Parse existing values (or initialize them)
-    let a = endRotation;
-    let b = endKick;
+// End Kick Calculation
+kickForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-    // Calculate high_end and low_end
-    let high_end = a + b;
-    let low_end = a - b;
+    // Get input values
+    const higher = parseFloat(document.getElementById('higher').value);
+    const lower = parseFloat(document.getElementById('lower').value);
+    const depth = parseFloat(document.getElementById('depth').value);
+    const span = parseFloat(document.getElementById('span').value);
+    const deflection = parseFloat(document.getElementById('deflection').value);
 
-    // Display the results
-    const endKick_resultElement = document.getElementById('result2');
-    const highEndElement = document.getElementById('high_end'); // Select the element for High End
-    const lowEndElement = document.getElementById('low_end');  // Select the element for Low End
+    if (isNaN(higher) || isNaN(lower) || isNaN(span) || isNaN(depth) || isNaN(deflection)) {
+        endKickResultElement.textContent = 'Please provide valid numbers.';
+        return;
+    }
 
-    endKick_resultElement.textContent = `End Kick: ${endKick.toFixed(5)}`;
-    highEndElement.textContent = `High End: ${high_end.toFixed(5)}`;
-    lowEndElement.textContent = `Low End: ${low_end.toFixed(5)}`;
+    // Recalculate End Rotation
+    const endRotation = 4 * deflection * (depth / span);
+    const gradeTan = (higher - lower) / span;
+    const endKick = gradeTan * depth;
+    const highEnd = endRotation + endKick;
+    const lowEnd = endRotation - endKick;
+
+    // Display results
+    endKickResultElement.textContent = `End Kick: ${endKick.toFixed(4)}`;
+    highEndElement.textContent = `High End: ${highEnd.toFixed(4)}`;
+    lowEndElement.textContent = `Low End: ${lowEnd.toFixed(4)}`;
+});
+
+// Calculate E and update table
+calculateEButton.addEventListener('click', () => {
+    const deflection = parseFloat(document.getElementById('deflection').value);
+    const depth = parseFloat(document.getElementById('depth').value);
+    const distance = parseFloat(document.getElementById('distance').value);
+
+    if (isNaN(deflection) || isNaN(depth) || isNaN(distance) || p === null) {
+        alert('Please provide valid numbers and calculate End Rotation first.');
+        return;
+    }
+
+    // Calculate x and E
+    const x = (distance * distance) / p;
+    const E = (4 * x * depth) / (2 * distance);
+
+    // Display E
+    eValueElement.textContent = `E = ${E.toFixed(5)}`;
+    eValueElement.style.display = 'block'; // Show the E value
+
+    // Add a new row to the table
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${distance.toFixed(5)}</td>
+        <td>${x.toFixed(5)}</td>
+        <td>${E.toFixed(5)}</td>
+    `;
+    resultsTableBody.appendChild(newRow);
+});
+
+// Clear E value if input fields change
+document.getElementById('deflection').addEventListener('input', () => {
+    eValueElement.style.display = 'none'; // Hide E value
+});
+
+document.getElementById('depth').addEventListener('input', () => {
+    eValueElement.style.display = 'none'; // Hide E value
+});
+
+document.getElementById('distance').addEventListener('input', () => {
+    eValueElement.style.display = 'none'; // Hide E value
 });
