@@ -1,54 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   
-    <title>Plate girder camber Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plate Girder Camber Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
     <header>
         <h1>End Rotation Calculator</h1>
     </header>
-    <main>
 
-    <section class="calculator">
-            <h2>Calculate End Rotation</h2>
-            <form id="End-rotation">
-                <label for="deflection">Deflection:</label>
-                <input type="number"step="any" id="deflection" required>
-                <br><br>
-                <label for="depth">Depth:</label>
-                <input type="number"step="any" id="depth" required>
-                <br><br>
-                <label for="span">Span:</label>
-                <input type="number"step="any" id="span" required>
-                <br><br>
-                <button id="calculate-btn">Calculate End Rotation</button>
-                <p id="result"></p>
-            </form>
-            <form id="End-kick">
-                <label for="higher">Higher Elevation:</label>
-                <input type="number"step="any" id="higher" required>
-                <br><br>
-                <label for="lower">Lower Elevation:</label>
-                <input type="number"step="any" id="lower" required>
-                <br><br>
-                <button id="calculate-btn">Calculate End Kick due to grade</button>
-               
-          
-               
-            </form>
-            <p id="result2"></p>
-            <p id="high_end">High End: </p> <!-- Placeholder for High End -->
-            <p id="low_end">Low End: </p> <!-- Placeholder for Low End -->
-           
-           
+    <main>
+        <section class="calculator">
+            <div class="forms-container">
+                <div class="form-column">
+                    <h2>Calculate End Rotation</h2>
+                    <form id="End-rotation">
+                        <label for="deflection">Deflection:</label>
+                        <input type="text" step="any" id="deflection" required placeholder="Enter value in Feet">
+                        <label for="depth">Depth:</label>
+                        <input type="text" step="any" id="depth" required placeholder="Enter value in Feet">
+                        <label for="span">Span:</label>
+                        <input type="text" step="any" id="span" required placeholder="Enter value in Feet">
+                        <button type="submit">Calculate End Rotation</button>
+                        <p id="result"></p>
+                        <p id="p"></p>
+                    </form>
+                </div>
+
+                <div class="form-column">
+                    <h2>Calculate End Kick Due to Grade</h2>
+                    <form id="End-kick">
+                        <label for="higher">Higher Elevation:</label>
+                        <input type="number" step="any" id="higher" required placeholder="Enter value in Feet">
+                        <label for="lower">Lower Elevation:</label>
+                        <input type="number" step="any" id="lower" required placeholder="Enter value in Feet">
+                        <button type="submit">Calculate End Kick</button>
+                    </form>
+                    <p id="result2"></p>
+                    <p id="high_end">High End: </p>
+                    <p id="low_end">Low End: </p>
+                </div>
+
+                <div class="form-column">
+                    <label for="distance">Distance (y):</label>
+                    <input type="text" step="any" id="distance" required placeholder="Enter value in Feet">
+                    <button type="button" id="calculateE">Calculate E</button>
+                    <p id="eValue" style="display: none;">E = </p> <!-- Hide initially -->
+                </div>
+
+            <!-- Table to display y, x, and E -->
+            <div class="table-container">
+                <h2>Calculation Results</h2>
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Distance (y)</th>
+                            <th>x</th>
+                            <th>E</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
         </section>
-       
-    
     </main>
-  
+
     <script src="script.js"></script>
 </body>
 </html>
